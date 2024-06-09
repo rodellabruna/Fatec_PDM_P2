@@ -10,16 +10,15 @@ import {
   View,
 } from 'react-native';
 import CatImage from './CatImage';
-
+ 
 export default function App() {
   const [buttonColor, setButtonColor] = useState('#011F51');
-  const [showCatImage, setShowCatImage] = useState(false);
-
+  const [showCatImages, setShowCatImages] = useState(false);
+ 
   const handleButtonPress = () => {
-   
-    setShowCatImage(true);
+    setShowCatImages(true);
   };
-
+ 
   return (
     <View style={styles.container}>
       <Pressable
@@ -30,11 +29,18 @@ export default function App() {
       >
         <Text style={styles.buttonText}>{`Buscar Gatos`}</Text>
       </Pressable>
-      {showCatImage && <CatImage />}
+      {showCatImages && (
+        <FlatList
+          data={[...Array(5).keys()]}
+          renderItem={({ item }) => <CatImage key={item} />}
+          keyExtractor={(item) => item.toString()}
+          horizontal
+        />
+      )}
     </View>
   );
 }
-
+ 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
